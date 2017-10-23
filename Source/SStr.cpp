@@ -11,3 +11,12 @@ int ToUpper(int c)
 		c-=32;
 	return c;
 }
+
+char *SStrCopy(char *dest, const char *source)
+{
+	char *str;
+
+	str = dest;
+	while(*dest++ = *source++);
+	return str;
+}
