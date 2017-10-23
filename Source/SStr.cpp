@@ -20,3 +20,17 @@ char *SStrCopy(char *dest, const char *source)
 	while(*dest++ = *source++);
 	return str;
 }
+
+char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
+{
+	char *str;
+
+	str = dest;
+	for ( ; maxchar; maxchar--)
+	{
+		*dest++ = *source++;
+		if (*source == '/0')
+			maxchar = 0;
+	}
+	return str;
+}
