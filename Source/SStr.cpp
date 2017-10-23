@@ -34,3 +34,11 @@ char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
 	}
 	return str;
 }
+
+unsigned int SStrLength(const char *str)
+{
+	unsigned int length;
+
+	for (length = 0; *str; *str++ && length++);
+	return length;
+}
