@@ -1,3 +1,10 @@
+inline void SSwap(char &a, char &b)
+{
+	char temp = a;
+	a = b;
+	b = temp;
+}
+
 int ToLower(int c)
 {
 	if (c > 64 && c < 91)
@@ -41,4 +48,20 @@ unsigned int SStrLength(const char *str)
 
 	for (length = 0; *str; *str++ && length++);
 	return length;
+}
+
+char *SStrReverse(char *dest, const char *source)
+{
+	char *str;
+	int len;
+	int pos;
+
+	SStrCopy(dest, source);
+	str = dest;
+	len = SStrLength(source) - 1;
+	pos = 0;
+	while (pos < len)
+		SSwap(dest[pos++], dest[len--]);
+
+	return str;
 }
