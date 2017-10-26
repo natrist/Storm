@@ -42,3 +42,31 @@ unsigned int SStrLength(const char *str)
 	for (length = 0; *str; *str++ && length++);
 	return length;
 }
+
+char *SStrChr(char *string, int ch)
+{
+	char *result;
+
+	result = string;
+	while (*result != ch)
+	{
+		if (!(*result))
+			return 0;
+		*result++;
+	}
+	return result;
+}
+
+const char *SStrChr(const char *string, int ch)
+{
+	const char *result;
+
+	result = string;
+	while (*result != ch)
+	{
+		if (!(*result))
+			return 0;
+		*result++;
+	}
+	return result;
+}
