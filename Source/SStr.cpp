@@ -1,31 +1,34 @@
-int ToLower(int c)
+#include "H/STPL.h"
+
+extern int ToLower(int ch)
 {
-	if (c > 64 && c < 91)
-		c+=32;
-	return c;
+	if (ch > 64 && ch < 91)
+		ch+=32;
+	return ch;
 }
 
-int ToUpper(int c)
+extern int ToUpper(int ch)
 {
-	if (c > 96 && c < 123)
-		c-=32;
-	return c;
+	if (ch > 96 && ch < 123)
+		ch-=32;
+	return ch;
 }
 
-char *SStrCopy(char *dest, const char *source)
+extern int IsDigit(int ch)
 {
-	char *str;
+	return (ch > 47 && ch < 58);
+}
 
-	str = dest;
-	while(*dest++ = *source++);
+extern char *SStrCopy(char *dest, const char *source)
+{
+	char *str = dest;
+	while((*dest++ = *source++));
 	return str;
 }
 
-char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
+extern char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
 {
-	char *str;
-
-	str = dest;
+	char *str = dest;
 	for ( ; maxchar; maxchar--)
 	{
 		*dest++ = *source++;
@@ -35,7 +38,7 @@ char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
 	return str;
 }
 
-unsigned int SStrLength(const char *str)
+extern unsigned int SStrLength(const char *str)
 {
 	unsigned int length;
 
@@ -43,11 +46,9 @@ unsigned int SStrLength(const char *str)
 	return length;
 }
 
-char *SStrChr(char *string, int ch)
+extern char *SStrChr(char *string, int ch)
 {
-	char *result;
-
-	result = string;
+	char *result = string;
 	while (*result != ch)
 	{
 		if (!(*result))
@@ -57,11 +58,9 @@ char *SStrChr(char *string, int ch)
 	return result;
 }
 
-const char *SStrChr(const char *string, int ch)
+extern const char *SStrChr(const char *string, int ch)
 {
-	const char *result;
-
-	result = string;
+	const char *result = string;
 	while (*result != ch)
 	{
 		if (!(*result))
