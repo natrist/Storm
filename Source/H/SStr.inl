@@ -7,6 +7,10 @@ inline int ToUpper(int ch);
 
 inline int IsDigit(int ch);
 
+inline char *SStrToLower(char *string);
+
+inline char *SStrToUpper(char *string);
+
 inline char *SStrCopy(char *dest, const char *source);
 
 inline char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar);

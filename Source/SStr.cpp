@@ -19,6 +19,28 @@ extern int IsDigit(int ch)
 	return (ch > 47 && ch < 58);
 }
 
+extern char *SStrToLower(char *string)
+{
+	char *tempstring = string;
+	do
+	{
+		*tempstring++ = ToLower(*string++);
+	} while (*string != 0);
+	string = tempstring;
+	return string;
+}
+
+extern char *SStrToUpper(char *string)
+{
+	char *tempstring = string;
+	do
+	{
+		*tempstring++ = ToUpper(*string++);
+	} while (*string != 0);
+	string = tempstring;
+	return string;
+}
+
 extern char *SStrCopy(char *dest, const char *source)
 {
 	char *str = dest;
