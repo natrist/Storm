@@ -10,6 +10,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # as Visual Studio projects (.vcproj)
 project (Storm)
 
+# On Linux, pthread is needed for the SThread implementation.
+if(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pthread")
+endif()
+
 add_subdirectory(Source)
 
 option(VAR_CONSOLE_STORM "Generate ConsoleStorm project for tests" ON)
