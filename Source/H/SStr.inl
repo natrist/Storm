@@ -21,4 +21,6 @@ inline char *SStrChr(char *string, int ch);
 
 inline const char *SStrChr(const char *string, int ch);
 
+inline void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, const char *whitespace);
+
 #endif

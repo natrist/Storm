@@ -91,3 +91,7 @@ extern const char *SStrChr(const char *string, int ch)
 	}
 	return result;
 }
+
+extern void SStrTokenize(const char ** string, char * buffer, unsigned int maxbufchars, const char * whitespace)
+{
+}

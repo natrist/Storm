@@ -30,12 +30,10 @@ void *DoWorkTwo(void *arg)
 
 int main(int argc, char *argv[])
 {
-	SThread::CreateLock(&lock);
-	SThread thread1(&DoWork, nullptr);
-	SThread thread2(&DoWorkTwo, nullptr);
-	thread2.Join();
-	SThread::DeleteLock(&lock);
+	const int digit = '4';
+	const char *string = "It's so fun!";
+	char curArg[64];
 
-	int digit = '4';
+	SStrTokenize(&string, curArg, 64u, "\t");
 	return IsDigit(digit);
 }
