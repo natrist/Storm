@@ -39,6 +39,8 @@ project "StormLib"
 	-- This needs to be set before platform-specific steps or it will not run
 	-- Possible Premake bug?
 	files { "Source/*.cpp" }
+	-- We include all files under Source/H to create the Visual Studio filter for header files
+	files { "Source/H/**" }
 	removefiles { "Source/ConsoleStorm.cpp" }
 	includedirs { "Source/H" }
 
