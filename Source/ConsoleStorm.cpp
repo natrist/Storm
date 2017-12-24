@@ -34,6 +34,13 @@ int main(int argc, char *argv[])
 	const char *string = "It's so fun!";
 	char curArg[64];
 
+	SThread::CreateLock(&lock);
+	SThread thread(&DoWork, nullptr);
+	SThread thread2(&DoWorkTwo, nullptr);
+	thread.Join();
+	thread2.Join();
+	SThread::DeleteLock(&lock);
+
 	SStrTokenize(&string, curArg, 64u, "\t");
 	return IsDigit(digit);
 }
