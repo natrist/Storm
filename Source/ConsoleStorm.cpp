@@ -1,46 +1,46 @@
 #include "H/STPL.h"
-#include "H/SThread.h"
 #include <cstdio>
+#include "H/SLock.h"
+#include "H/SThread.h"
 
-STHREAD_LOCK lock;
+SMutex mutex;
 
-void *DoWork(void *arg)
+void Test(const char *name)
 {
-	STORM_LOCK(&lock);
-	printf("DoWork acquired lock.\n");
 	int i = 0;
-	while (i++ < 10000)
-		;
-	printf("DoWork releasing lock.\n");
-	STORM_UNLOCK(&lock);
+	mutex.Wait(INFINITE);
+	do
+	{
+		i++;
+		printf("\tTest: %s\n", name);
+	} while (i < 5);
+	mutex.Release();
+}
+
+unsigned long __stdcall DoWork1(void *)
+{
+	printf("Thread 1 is done!\n\tGetLastError returned %d\n", GetLastError());
+	Test("thread1");
 	return 0;
 }
 
-void *DoWorkTwo(void *arg)
+unsigned long __stdcall DoWork2(void *)
 {
-	STORM_LOCK(&lock);
-	printf("DoWorkTwo acquired lock.\n");
-	int i = 0;
-	while (i++ < 10000)
-		;
-	printf("DoWorkTwo releasing lock.\n");
-	STORM_UNLOCK(&lock);
+	printf("Thread 2 is done!\n\tGetLastError returned %d\n", GetLastError());
+	Test("thread2");
 	return 0;
 }
 
 int main(int argc, char *argv[])
 {
-	const int digit = '4';
-	const char *string = "It's so fun!";
-	char curArg[64];
+	SThread thread1(&DoWork1, 0);
+	SThread thread2(&DoWork2, 0);
 
-	SThread::CreateLock(&lock);
-	SThread thread(&DoWork, nullptr);
-	SThread thread2(&DoWorkTwo, nullptr);
-	thread.Join();
+	mutex.Create(0, "MYMUTEX");
+
+	thread1.Join();
 	thread2.Join();
-	SThread::DeleteLock(&lock);
-
-	SStrTokenize(&string, curArg, 64u, "\t");
-	return IsDigit(digit);
+	
+	mutex.Close();
+	return 0;
 }
