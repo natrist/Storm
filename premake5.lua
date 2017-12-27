@@ -22,6 +22,7 @@ project "ConsoleStorm"
 	-- end Workaround
 
 	files "Source/ConsoleStorm.cpp"
+	includedirs { "Source/H" }
 	links { "StormLib" }
 
 -- Generate the 'StormLib' project
