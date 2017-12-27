@@ -1,7 +1,7 @@
 #ifndef __STHREAD_H__
 #define __STHREAD_H__
 
-#include "SLock.h"
+#include <STPL.h>
 
 typedef unsigned long(__stdcall *SThreadProc)(void *);
 
@@ -12,7 +12,7 @@ public:
 	void Join();
 
 private:
-	unsigned long m_threadId;
+	unsigned long m_threadId{};
 };
 
 #endif /* __STHREAD_H__ */

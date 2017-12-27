@@ -1,6 +1,5 @@
-#ifndef _SLOCK__H_
-#define _SLOCK__H_
-#include "Windows.h"
+#ifndef __SLOCK_H__
+#define __SLOCK_H__
 
 class SSyncObject
 {
@@ -16,7 +15,8 @@ protected:
 	void Copy(SSyncObject *rhs);
 	void Close();
 
-	void *m_opaqueData;
+	// The 'h' prefix here stands for HANDLE (Windows specific)
+	void *m_opaqueData{};
 };
 
 class SMutex : public SSyncObject
@@ -28,6 +28,7 @@ public:
 	void Close();
 };
 
+// TODO: Move to its own file (SCritSect.h, SCritSect.cpp)?
 class SCritSect
 {
 public:
@@ -39,7 +40,8 @@ public:
 	void TryEnter();
 
 private:
-	char m_opaqueData[24]; // TODO: different sizes on 32bit and 64bit platforms. (and not portable on linux?)
+	// TODO: This might not exist on Linux and Mac systems, so we need to figure out what structure the two platforms use for Critical Sections
+	char m_opaqueData[sizeof(RTL_CRITICAL_SECTION)];
 };
 
-#endif // _SLOCK__H_
+#endif // __SLOCK_H__

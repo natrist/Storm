@@ -1,8 +1,9 @@
-#ifdef WIN32
-#include "../H/STPL.h"
+#ifdef _WIN32
+// For Windows includes and defines
+#include <STPL.h>
 
 extern void SErrDisplayError(const char *inText, const char *inTitle)
 {
-	MessageBox(0, inText, inTitle, MB_ABORTRETRYIGNORE);
+	MessageBoxA(0, inText, inTitle, MB_ABORTRETRYIGNORE);
 }
-#endif
+#endif /* _WIN32 */

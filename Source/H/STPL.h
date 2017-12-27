@@ -6,8 +6,11 @@
 #include "Windows.h"
 #endif
 
-#include "SStr.inl"
-#include "SErr.inl"
-#include "SFile.inl"
+#include <SStr.inl>
+#include <SErr.inl>
+#include <SFile.inl>
+
+#include <SLock.h>
+#include <SThread.h>
 
 #endif

@@ -1,5 +1,5 @@
-#include "SLock.h"
-#include <cstdio>
+// For SLock.h and SErr.h
+#include <STPL.h>
 
 /* SSyncObject */
 
@@ -37,18 +37,16 @@ void SSyncObject::Close()
 
 void SSyncObject::Copy(SSyncObject *rhs)
 {
-	HANDLE hTargetProcessHandle;
-	HANDLE hSourceProcessHandle;
-	HANDLE hSourceHandle;
+	void *hTargetProcessHandle;
+	void *hSourceProcessHandle;
+	void *hSourceHandle;
 
 	hTargetProcessHandle = GetCurrentProcess();
-	hSourceHandle = (HANDLE)rhs->m_opaqueData;
+	hSourceHandle = rhs->m_opaqueData;
 	hSourceProcessHandle = GetCurrentProcess();
-	if (!DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, (LPHANDLE)m_opaqueData, 0, 0, 2u))
+	if (!DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, (void **)m_opaqueData, 0, 0, 2u))
 	{
-		// TODO: SErrDisplayError("Something went terribly wrong!", "Error");
-		printf("Something went wrong in SSyncObject::Copy()!!\n");
-		printf("\tGetLastError() returned %d\n", GetLastError());
+		SErrDisplayError("Something went wrong in SSyncObject::Copy() and Storm can't continue", "Fatal error");
 	}
 }
 
@@ -71,7 +69,7 @@ void SMutex::Create(int initialOwner, const char* name)
 
 void SMutex::Open(const char* name)
 {
-	;
+	m_opaqueData = OpenMutexA(0x1F0001u, 1, name);
 }
 
 bool SMutex::Release()
