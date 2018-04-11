@@ -1,10 +1,3 @@
--- Workaround for Premake issue #935 (1/3)
-function os.winSdkVersion()
-    local reg_arch = iif( os.is64bit(), "\\Wow6432Node\\", "\\" )
-    local sdk_version = os.getWindowsRegistry( "HKLM:SOFTWARE" .. reg_arch .."Microsoft\\Microsoft SDKs\\Windows\\v10.0\\ProductVersion" )
-    if sdk_version ~= nil then return sdk_version end
-end
-
 -- Generate the 'Storm' workspace (a.k.a. Visual Studio solution)
 workspace "Storm"
 	configurations { "Debug", "Release" }
@@ -16,11 +9,6 @@ project "ConsoleStorm"
 	kind ("ConsoleApp")
 	language "C++"
 
-	-- Workaround for Premake issue #935 (3/3)
-	filter { "system:windows", "action:vs*" }
-	systemversion(os.winSdkVersion() .. ".0")
-	-- end Workaround
-
 	files "Source/ConsoleStorm.cpp"
 	includedirs { "Source/H" }
 	links { "StormLib" }
@@ -30,11 +18,6 @@ project "ConsoleStorm"
 project "StormLib"
 	kind ("StaticLib")
 	language "C++"
-
-	-- Workaround for Premake issue #935 (2/3)
-	filter { "system:windows", "action:vs*" }
-	systemversion(os.winSdkVersion() .. ".0")
-	-- end Workaround
 
 	-- Generic build steps
 	-- This needs to be set before platform-specific steps or it will not run
