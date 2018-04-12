@@ -92,6 +92,54 @@ extern const char *SStrChr(const char *string, int ch)
 	return result;
 }
 
-extern void SStrTokenize(const char ** string, char * buffer, unsigned int maxbufchars, const char * whitespace)
+extern void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, const char *whitespace)
 {
+	if (string && *string)
+	{
+		// For write access to string
+		const char *copy = *string;
+
+		if (whitespace && *whitespace)
+		{
+			unsigned int pos = 0;
+			
+			// Here we reset our buffer (lol)
+			while(buffer[pos] != '\0')
+			{
+				buffer[pos] = '\0';
+				pos++;
+			}
+
+			for (pos = 0; pos < maxbufchars; pos++)
+			{
+				for (unsigned int i = 0; i < SStrLength(whitespace); i++)
+				{
+					if (copy[pos] == whitespace[i])
+					{
+						// Whitespace found at beginning of string
+						if (pos == 0)
+							copy++;
+						else
+						{
+							copy = SStrChr(*string, whitespace[i]);
+							copy++;
+							goto WRITEOUT;
+						}
+					}
+				}
+				buffer[pos] = copy[pos];
+				if (copy[pos] == 0)
+					break;
+			}
+
+			for (unsigned int i = 0; i < pos; i++)
+				copy++;
+WRITEOUT:
+			*string = copy;
+		}
+		// Error out here:
+		// You should not be able to tokenize without a whitespace argument
+	}
+	// Error out here:
+	// You should not be able to tokenize without a string
 }
