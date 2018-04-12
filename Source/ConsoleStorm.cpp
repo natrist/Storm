@@ -1,4 +1,22 @@
 #include <STPL.h>
+
+int main(__in int _Argc, __in_ecount_z(_Argc) char ** _Argv, __in_z char ** _Env)
+{
+	char buf[255] = { 0, };
+	const char *string = "Zed 3 5 9";
+
+	SStrTokenize(&string, buf, -1, " \t");
+	printf("\tSStrTokenize returned '%s'\n", buf);
+	SStrTokenize(&string, buf, -1, " \t");
+	printf("\tSStrTokenize returned '%s'\n", buf);
+	SStrTokenize(&string, buf, -1, " \t");
+	printf("\tSStrTokenize returned '%s'\n", buf);
+	SStrTokenize(&string, buf, -1, " \t");
+	printf("\tSStrTokenize returned '%s'\n", buf);
+	return 0;
+}
+
+/*
 #include <cstdio>
 
 SMutex mutex;
@@ -46,3 +64,4 @@ int main(int argc, char *argv[])
 	mutex.Close();
 	return 0;
 }
+*/
