@@ -16,7 +16,7 @@ protected:
 	void Close();
 
 	// The 'h' prefix here stands for HANDLE (Windows specific)
-	void *m_opaqueData{};
+	void *m_opaqueData;
 };
 
 class SMutex : public SSyncObject

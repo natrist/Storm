@@ -12,7 +12,7 @@ public:
 	void Join();
 
 private:
-	unsigned long m_threadId{};
+	unsigned long m_threadId;
 };
 
 #endif /* __STHREAD_H__ */
