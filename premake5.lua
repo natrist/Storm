@@ -3,6 +3,17 @@ workspace "Storm"
 	configurations { "Debug", "Release" }
 	location "Build"
 
+	filter { "system:windows" }
+		require "vstudio"
+		premake.override(premake.vstudio.vc200x, "tools", function(oldfn, cfg)
+			local toolset = premake.config.toolset(cfg)
+			premake.callArray(premake.vstudio.vc200x.elements.tools, cfg, iif(toolset == premake.tools.msc, nil, toolset))
+		end)
+
+		filter { "configurations:debug" }
+			symbols "On"
+		filter { }
+
 -- Generate the 'ConsoleStorm' project
 -- This project is used for testing the Storm library from within the IDE
 project "ConsoleStorm"
