@@ -41,7 +41,11 @@ public:
 
 private:
 	// TODO: This might not exist on Linux and Mac systems, so we need to figure out what structure the two platforms use for Critical Sections
+	#ifdef _WIN32
 	char m_opaqueData[sizeof(RTL_CRITICAL_SECTION)];
+	#else
+	char m_opaqueData[48];
+	#endif // _WIN32
 };
 
 #endif // __SLOCK_H__
