@@ -3,26 +3,18 @@ workspace "Storm"
 	configurations { "Debug", "Release" }
 	location "Build"
 
-	filter { "system:windows" }
+	filter "system:windows"
 		require "vstudio"
 		premake.override(premake.vstudio.vc200x, "tools", function(oldfn, cfg)
 			local toolset = premake.config.toolset(cfg)
 			premake.callArray(premake.vstudio.vc200x.elements.tools, cfg, iif(toolset == premake.tools.msc, nil, toolset))
 		end)
 
-		filter { "configurations:debug" }
+		filter "configurations:debug"
 			symbols "On"
-		filter { }
-
--- Generate the 'ConsoleStorm' project
--- This project is used for testing the Storm library from within the IDE
-project "ConsoleStorm"
-	kind ("ConsoleApp")
-	language "C++"
-
-	files "Source/ConsoleStorm.cpp"
-	includedirs { "Source/H" }
-	links { "StormLib" }
+	
+	filter "system:macosx"
+		toolset "clang"
 
 -- Generate the 'StormLib' project
 -- This is the main library project, containing the preciouuus
@@ -35,8 +27,14 @@ project "StormLib"
 	-- Possible Premake bug?
 	files { "Source/*.cpp" }
 	-- We include all files under Source/H to create the Visual Studio filter for header files
-	files { "Source/H/**" }
-	removefiles { "Source/ConsoleStorm.cpp" }
+	files { "Source/H/*.h", "Source/H/*.inl" }
+	-- We remove some files from the build steps:
+	-- ConsoleStorm.cpp: Not needed as part of Storm
+	-- SStr.cpp: Necessary to compile properly, due to in-lining
+	removefiles {
+		"Source/ConsoleStorm.cpp",
+		"Source/SStr.cpp"
+		}
 	includedirs { "Source/H" }
 
 	-- Windows ONLY build steps
@@ -50,3 +48,13 @@ project "StormLib"
 	-- MacOS ONLY build steps
 	filter "system:macosx"
 		files { "Source/Mac/*.cpp" }
+
+-- Generate the 'ConsoleStorm' project
+-- This project is used for testing the Storm library from within the IDE
+project "ConsoleStorm"
+	kind ("ConsoleApp")
+	language "C++"
+
+	files "Source/ConsoleStorm.cpp"
+	includedirs { "Source/H" }
+	links { "StormLib" }

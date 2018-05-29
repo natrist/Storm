@@ -23,4 +23,7 @@ inline const char *SStrChr(const char *string, int ch);
 
 inline void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, const char *whitespace);
 
+// DO NOT REMOVE THE BELOW INCLUSION:
+// USED FOR IN-LINING OF SSTR CODE!
+#include "../SStr.cpp"
 #endif
