@@ -54,7 +54,7 @@ extern char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
 	for ( ; maxchar; maxchar--)
 	{
 		*dest++ = *source++;
-		if (*source == '/0')
+		if (*source == 0)
 			maxchar = 0;
 	}
 	return str;
