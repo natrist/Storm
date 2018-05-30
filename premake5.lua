@@ -26,15 +26,18 @@ project "StormLib"
 	-- This needs to be set before platform-specific steps or it will not run
 	-- Possible Premake bug?
 	files { "Source/*.cpp" }
+
 	-- We include all files under Source/H to create the Visual Studio filter for header files
 	files { "Source/H/*.h", "Source/H/*.inl" }
+
 	-- We remove some files from the build steps:
 	-- ConsoleStorm.cpp: Not needed as part of Storm
 	-- SStr.cpp: Necessary to compile properly, due to in-lining
 	removefiles {
 		"Source/ConsoleStorm.cpp",
-		"Source/SStr.cpp"
+		"Source/SStr.cpp",
 		}
+
 	includedirs { "Source/H" }
 
 	-- Windows ONLY build steps
@@ -47,7 +50,7 @@ project "StormLib"
 	
 	-- MacOS ONLY build steps
 	filter "system:macosx"
-		files { "Source/Mac/*.cpp" }
+		defines { "LUA_USE_MACOSX" }
 
 -- Generate the 'ConsoleStorm' project
 -- This project is used for testing the Storm library from within the IDE
@@ -58,3 +61,9 @@ project "ConsoleStorm"
 	files "Source/ConsoleStorm.cpp"
 	includedirs { "Source/H" }
 	links { "StormLib" }
+
+	-- MacOS ONLY build steps
+	-- CoreFoundation is used for SErr dialog boxes on Mac OS X
+	filter "system:macosx"
+		defines { "LUA_USE_MACOSX" }
+		links { "CoreFoundation.framework" }
