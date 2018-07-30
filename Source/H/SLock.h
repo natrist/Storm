@@ -1,6 +1,12 @@
 #ifndef __SLOCK_H__
 #define __SLOCK_H__
 
+#ifdef _WIN32	/* _WIN32 */
+#define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0501
+#include "Windows.h"
+#endif	/* _WIN32 */
+
 class SSyncObject
 {
 public:

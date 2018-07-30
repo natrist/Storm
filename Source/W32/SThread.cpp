@@ -1,5 +1,9 @@
 #include <SThread.h>
 
+#define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0501
+#include "Windows.h"
+
 SThread::SThread(SThreadProc threadProc, void *param)
 {
 	HANDLE hndl;

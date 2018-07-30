@@ -1,4 +1,5 @@
 // Credit for the Mac dialog box code goes to https://github.com/aaronmjacobs
+#include <CoreFoundation/CoreFoundation.h>
 
 // Icons to decorate the dialog message box.
 // Use `Icon::None` for no icon decoration.
@@ -116,7 +117,7 @@ Button::Enum showMessageBox(Icon::Enum icon, unsigned int buttons, const char * 
 // Storm code starts below:
 #include <SErr.inl>
 
-extern void SErrDisplayError(const char *inText, const char *inTitle)
+void SErrDisplayError(const char *inText, const char *inTitle)
 {
 	showMessageBox(Icon::Error, Button::Ok, inTitle, inText);
 }

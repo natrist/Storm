@@ -1,8 +1,6 @@
 #ifndef __STHREAD_H__
 #define __STHREAD_H__
 
-#include <STPL.h>
-
 typedef unsigned long(__stdcall *SThreadProc)(void *);
 
 class SThread : public SSyncObject

@@ -1,9 +1,10 @@
-#ifdef _WIN32
-// For Windows includes and defines
-#include <STPL.h>
+#include <SErr.inl>
 
-extern void SErrDisplayError(const char *inText, const char *inTitle)
+#define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0501
+#include "Windows.h"
+
+void SErrDisplayError(const char *inText, const char *inTitle)
 {
 	MessageBoxA(0, inText, inTitle, MB_ABORTRETRYIGNORE);
 }
-#endif /* _WIN32 */
