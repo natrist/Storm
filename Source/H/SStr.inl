@@ -61,7 +61,7 @@ inline char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar)
 	return str;
 }
 
-inline unsigned int SStrLength(const char *str)
+inline unsigned int SStrLen(const char *str)
 {
 	unsigned int length;
 

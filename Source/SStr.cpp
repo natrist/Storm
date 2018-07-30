@@ -14,7 +14,7 @@ extern char *SStrCopy(char *dest, const char *source);
 
 extern char *SStrNumCopy(char *dest, const char *source, unsigned int maxchar);
 
-extern unsigned int SStrLength(const char *str);
+extern unsigned int SStrLen(const char *str);
 
 extern char *SStrChr(char *string, int ch);
 
@@ -40,7 +40,7 @@ void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, c
 
 			for (pos = 0; pos < maxbufchars; pos++)
 			{
-				for (unsigned int i = 0; i < SStrLength(whitespace); i++)
+				for (unsigned int i = 0; i < SStrLen(whitespace); i++)
 				{
 					if (copy[pos] == whitespace[i])
 					{
