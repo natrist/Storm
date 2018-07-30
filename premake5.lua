@@ -34,8 +34,7 @@ project "StormLib"
 	-- ConsoleStorm.cpp: Not needed as part of Storm
 	-- SStr.cpp: Necessary to compile properly, due to in-lining
 	removefiles {
-		"Source/ConsoleStorm.cpp",
-		"Source/SStr.cpp",
+		"Source/ConsoleStorm.cpp"
 		}
 
 	includedirs { "Source/H" }
@@ -50,7 +49,9 @@ project "StormLib"
 	
 	-- MacOS ONLY build steps
 	filter "system:macosx"
+		files { "Source/Mac/*.cpp" }
 		defines { "LUA_USE_MACOSX" }
+
 
 -- Generate the 'ConsoleStorm' project
 -- This project is used for testing the Storm library from within the IDE
