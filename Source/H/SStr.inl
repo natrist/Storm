@@ -93,6 +93,25 @@ inline const char *SStrChr(const char *string, int ch)
 	return result;
 }
 
+inline int SStrToInt(char *string)
+{
+	int result = 0;
+	bool negative = 0;
+
+	// If the string is a negative number, we set the negative multiplier flag
+	if (*string == '-')
+	{
+		negative = 1;
+		*string++;
+	}
+
+	while ('0' <= *string && *string <= '9')
+    	result = result * 10 + *string++ - '0';
+	if (negative)
+		result = result * -1;
+	return result;
+}
+
 void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, const char *whitespace);
 
 #endif

@@ -20,6 +20,8 @@ extern char *SStrChr(char *string, int ch);
 
 extern const char *SStrChr(const char *string, int ch);
 
+extern int SStrToInt(char *string);
+
 void SStrTokenize(const char **string, char *buffer, unsigned int maxbufchars, const char *whitespace)
 {
 	if (string && *string)
