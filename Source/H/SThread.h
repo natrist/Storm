@@ -1,6 +1,8 @@
 #ifndef __STHREAD_H__
 #define __STHREAD_H__
 
+#include <SLock.h>
+
 typedef unsigned long(__stdcall *SThreadProc)(void *);
 
 class SThread : public SSyncObject
