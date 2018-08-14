@@ -72,7 +72,7 @@ void SMutex::Open(const char* name)
 	m_opaqueData = OpenMutexA(0x1F0001u, 1, name);
 }
 
-bool SMutex::Release()
+int SMutex::Release()
 {
 	return ReleaseMutex(m_opaqueData);
 }

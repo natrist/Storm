@@ -30,7 +30,7 @@ class SMutex : public SSyncObject
 public:
 	void Create(int initialOwner, const char *name);
 	void Open(const char *name);
-	bool Release();
+	int Release();
 	void Close();
 };
 
