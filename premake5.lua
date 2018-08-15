@@ -3,15 +3,31 @@ workspace "Storm"
 	configurations { "Debug", "Release" }
 	location "Build"
 
-	filter "system:windows"
-		require "vstudio"
-		premake.override(premake.vstudio.vc200x, "tools", function(oldfn, cfg)
+	filter { 'system:windows' }
+			platforms   { 'x86', 'x64' }
+ 
+		-- Visual Studio 2005 special case:
+		-- Premake requires the following instructions in order to build vc8 solutions and projects
+			require "vstudio"
+			premake.override(premake.vstudio.vc200x, "tools", function(oldfn, cfg)
 			local toolset = premake.config.toolset(cfg)
 			premake.callArray(premake.vstudio.vc200x.elements.tools, cfg, iif(toolset == premake.tools.msc, nil, toolset))
-		end)
+			end)
 
-		filter "configurations:debug"
-			symbols "On"
+	filter "configurations:Debug"
+		defines     "_DEBUG"
+		symbols 	"On"
+
+	filter "configurations:Release"
+		defines     "NDEBUG"
+		optimize    "Full"
+		flags       { "NoBufferSecurityCheck", "NoRuntimeChecks" }
+
+	filter "action:vs*"
+		defines     { "_CRT_SECURE_NO_DEPRECATE", "_CRT_SECURE_NO_WARNINGS", "_CRT_NONSTDC_NO_WARNINGS" }
+
+	filter { "system:windows", "configurations:Release" }
+		flags       { "NoIncrementalLink", "LinkTimeOptimization" }
 	
 	filter "system:macosx"
 		toolset "clang"
@@ -42,6 +58,10 @@ project "StormLib"
 	-- Windows ONLY build steps
 	filter "system:windows"
 		files { "Source/W32/*.cpp" }
+		defines {
+			"WIN32_LEAN_AND_MEAN",
+			"_WIN32_WINNT 0x0501"
+		}
 	
 	-- Linux ONLY build steps
 	filter "system:linux"
