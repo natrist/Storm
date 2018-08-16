@@ -7,5 +7,6 @@
 
 #include <SLock.h>
 #include <SThread.h>
+#include <SRand.h>
 
 #endif

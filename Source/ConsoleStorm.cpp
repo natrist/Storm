@@ -2,17 +2,11 @@
 
 int main()
 {
-	char buf[255] = { 0, };
-	const char *string = "Zed 3 5 9";
+	char rand[10];
+	for (int i = 0; i < 10; i++)
+		rand[i] = 0;
 
-	SStrTokenize(&string, buf, -1, " \t");
-	//printf("\tSStrTokenize returned '%s'\n", buf);
-	SStrTokenize(&string, buf, -1, " \t");
-	//printf("\tSStrTokenize returned '%s'\n", buf);
-	SStrTokenize(&string, buf, -1, " \t");
-	//printf("\tSStrTokenize returned '%s'\n", buf);
-	SStrTokenize(&string, buf, -1, " \t");
-	//printf("\tSStrTokenize returned '%s'\n", buf);
+	RandomBytes(10, rand);
 	return 0;
 }
 
