@@ -1,19 +1,30 @@
 #include <SThread.h>
+#include <SStr.inl>
 
-#define WIN32_LEAN_AND_MEAN
-#define _WIN32_WINNT 0x0501
-#include "Windows.h"
-
-SThread::SThread(SThreadProc threadProc, void *param)
+SThread::SThread()
 {
-	HANDLE hndl;
-	
-	hndl = CreateThread(0, 0, threadProc, param, 0, &m_threadId);
-	m_opaqueData = hndl;
-	// return hndl != 0; maybe assert?
 }
 
-void SThread::Join()
+SThread::~SThread()
 {
-	Wait(INFINITE);
+}
+
+//************************************
+// Method:    Create
+// FullName:  SThread::Create
+// Access:    public 
+// Returns:   0 if CreateThread fails or a valid thread handle
+//************************************
+int SThread::Create(unsigned long (__stdcall *threadProc)(void *), void *param, SThread *thread, char *threadName)
+{
+	m_handle = CreateThread( 
+		0,			// default security attributes
+		0,			// use default stack size  
+		threadProc,	// thread function name
+		param,		// argument to thread function 
+		0,			// use default creation flags 
+		&m_threadId);
+
+	SStrCopy(m_name, threadName);
+	return m_handle != 0;
 }
