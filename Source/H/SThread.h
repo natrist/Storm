@@ -29,6 +29,10 @@ public:
 	int Create(unsigned long (__stdcall *threadProc)(void *), void *param, SThread *thread, char *threadName);  
 #endif /* _WIN32 */
 
+#ifdef __APPLE__
+	int Create(void *(*threadProc)(void *), void *param, SThread *thread, char *threadName);  
+#endif /* __APPLE__ */
+
 	unsigned long m_threadId;
 	char m_name[16];
 };

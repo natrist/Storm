@@ -1,4 +1,12 @@
 #include <STPL.h>
+#include <stdio.h>
+
+void *myThreadProc(void *param)
+{
+	//int i = reinterpret_cast<int>(param);
+	const char *i = reinterpret_cast<const char *>(param);
+	printf("\tHey, %s\n", i);
+}
 
 int main()
 {
@@ -7,6 +15,15 @@ int main()
 		rand[i] = 0;
 
 	RandomBytes(10, rand);
+	SThread *myThread = new SThread;
+	printf("\t 1\n");
+	myThread->Create(*myThreadProc, (void *)"Fuck you, man! Claire sucks big time (and balls).", myThread, "myThreadProc");
+	printf("\t 2\n");
+	//pthread_join((pthread_t)myThread->m_handle, 0);
+	printf("\t 3\n");
+	printf("\t 4\n");
+	printf("\t 5\n");
+
 	return 0;
 }
 

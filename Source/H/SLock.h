@@ -5,6 +5,10 @@
 #include <Windows.h>
 #endif /* _WIN32 */
 
+#ifdef __APPLE__
+#include <pthread.h>
+#endif /* __APPLE__ */
+
 class SSyncObject{
 public:
 	SSyncObject();
